@@ -4,7 +4,7 @@ import PrimaryButton from '../../Components/PrimaryButton';
 
 const ExceptionalCare = () => {
     return (
-        <div className="px-4 py-16 mx-auto md:px-4 lg:px-8 lg:py-20 w-[96%] md:[96%] lg:w-9/12">
+        <div className="container px-4 py-16 mx-auto md:px-4 lg:px-8 lg:py-20 w-[96%] md:[96%] lg:w-9/12">
             <div className="grid gap-8 md:gap-8 lg:gap-16 row-gap-8 lg:grid-cols-2">
                 <div>
                     <img

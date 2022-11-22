@@ -7,7 +7,7 @@ import Navbar from '../Pages/Shared/Navbar';
 const Main = () => {
     return (
         <div>
-            <div className="w-full lg:w-[85%] mx-auto">
+            <div className="w-full lg:w-[85%] mx-auto container">
                 <Navbar></Navbar>
             </div>
             <div className='min-h-screen'>

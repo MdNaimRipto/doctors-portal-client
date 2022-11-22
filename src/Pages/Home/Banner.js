@@ -6,7 +6,7 @@ import bannerBg from "../../Assets/images/bg.png"
 const Banner = () => {
     return (
         <header style={{ background: `url(${bannerBg})` }}>
-            <div className="px-4 py-16 mx-auto w-full md:w-[85%] md:px-24 lg:px-8 lg:py-20">
+            <div className="px-4 py-16 mx-auto w-full md:w-[85%] md:px-24 lg:px-8 lg:py-20 container">
                 <div className="grid gap-5 row-gap-8 lg:grid-cols-2">
                     <div className='block md:block lg:hidden'>
                         <img

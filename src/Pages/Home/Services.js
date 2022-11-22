@@ -28,7 +28,7 @@ const Services = () => {
     ]
 
     return (
-        <div className="px-4 py-16 w-full md:w-[85%] mx-auto md:px-24 lg:px-8 lg:py-20">
+        <div className="container px-4 py-16 w-full md:w-[85%] mx-auto md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12 text-center">
                 <div>
                     <p className="inline-block px-3 py-px mb-4 text-sm font-semibold tracking-wider uppercase rounded-full text-primary">

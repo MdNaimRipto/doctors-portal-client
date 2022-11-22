@@ -1,16 +1,25 @@
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Loading from '../Shared/Loading';
 import AppointmentCard from './AppointmentCard';
 import BookingModal from './BookingModal';
 
 const AvailableAppointment = ({ selectedDate }) => {
-    const [appointments, setAppointments] = useState([])
     const [treatment, setTreatment] = useState(null)
-    useEffect(() => {
-        fetch('appointmentOptions.json')
-            .then(res => res.json())
-            .then(data => setAppointments(data))
-    }, [])
+    const date = format(selectedDate, "PP")
+    const { data: appointments = [], refetch, isLoading } = useQuery({
+        queryKey: ["appointmentOptions", date],
+        queryFn: async () => {
+            const res = await fetch(`https://doctors-portal-server-three-puce.vercel.app/appointmentOptions?date=${date}`);
+            const data = await res.json();
+            return data;
+        }
+    })
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <section className='my-12'>
@@ -34,6 +43,7 @@ const AvailableAppointment = ({ selectedDate }) => {
                         selectedDate={selectedDate}
                         treatment={treatment}
                         setTreatment={setTreatment}
+                        refetch={refetch}
                     />
                 }
             </div>

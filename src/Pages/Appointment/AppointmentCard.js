@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AppointmentCard = ({ appointment, setTreatment }) => {
-    const { name, slots } = appointment
+    const { name, slots, price } = appointment
     return (
         <div
             className="px-5 py-6 bg-white border rounded shadow-sm  text-center font-semibold mb-4">
@@ -9,8 +9,11 @@ const AppointmentCard = ({ appointment, setTreatment }) => {
             <p className="text-sm text-neutral mb-2">
                 {slots.length > 0 ? slots[0] : "Try Again Another Day"}
             </p>
-            <p className="text-sm text-neutral">
+            <p className="text-sm text-neutral mb-2">
                 {slots.length} {slots.length > 1 ? "Spaces" : "Space"} Available.
+            </p>
+            <p className="text-sm text-neutral">
+                Charge: ${price}
             </p>
             <label
                 disabled={slots.length === 0}

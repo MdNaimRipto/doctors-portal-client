@@ -9,7 +9,7 @@ const ContactForm = () => {
                 background: `url(${formBanner})`
             }}>
 
-            <div className='w-[96%] lg:w-2/6 md:w-3/5 mx-auto text-center text-white'>
+            <div className='container w-[96%] lg:w-2/6 md:w-3/5 mx-auto text-center text-white'>
                 <div>
                     <h2 className=" mb-1 font-sans text-base font-bold tracking-tight text-primary">
                         Contact Us

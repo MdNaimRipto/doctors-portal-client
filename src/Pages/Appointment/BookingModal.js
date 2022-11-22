@@ -1,8 +1,11 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../ContextProvider/AuthProvider';
 
-const BookingModal = ({ selectedDate, treatment, setTreatment }) => {
-    const { name, slots } = treatment
+const BookingModal = ({ selectedDate, treatment, setTreatment, refetch }) => {
+    const { user } = useContext(AuthContext)
+    const { name, slots, price } = treatment
 
     const handleBooking = (event) => {
         event.preventDefault()
@@ -14,6 +17,7 @@ const BookingModal = ({ selectedDate, treatment, setTreatment }) => {
         const phone = form.phone.value;
         const booking = {
             appointmentName: treatment.name,
+            treatmentCharge: price,
             appointmentDate: date,
             bookingDate: new Date(),
             userName: name,
@@ -21,8 +25,43 @@ const BookingModal = ({ selectedDate, treatment, setTreatment }) => {
             phone: phone,
             slot: slot
         }
-        console.log(booking)
-        setTreatment(null)
+        fetch("https://doctors-portal-server-three-puce.vercel.app/bookings", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    console.log(data)
+                    setTreatment(null)
+                    toast('Booking Successful!',
+                        {
+                            icon: '👏',
+                            style: {
+                                borderRadius: '10px',
+                                background: '#333',
+                                color: '#fff',
+                            },
+                        }
+                    );
+                    refetch()
+                }
+                else {
+                    setTreatment(null)
+                    toast.error(data.message,
+                        {
+                            style: {
+                                borderRadius: '10px',
+                                background: '#333',
+                                color: '#fff',
+                            },
+                        }
+                    );
+                }
+            })
     }
 
     return (
@@ -46,10 +85,15 @@ const BookingModal = ({ selectedDate, treatment, setTreatment }) => {
                             }
                         </select>
 
-                        <input name="name" type="text" placeholder="Full Name"
-                            className="input w-full mx-auto mb-4 bg-gray-200" />
-                        <input name="email" type="email" placeholder="Email Address"
-                            className="input w-full mx-auto mb-4 bg-gray-200" />
+                        <input name="name" type="text" defaultValue={user?.displayName} placeholder="Full Name"
+                            className="input w-full mx-auto mb-4 bg-gray-200" disabled />
+                        <input name="email" type="email" defaultValue={user?.email} placeholder="Email Address"
+                            className="input w-full mx-auto mb-4 bg-gray-200" disabled />
+                        {
+                            user?.uid &&
+                            <input name="price" defaultValue={`Charge: $${price}`}
+                                className="input w-full mx-auto mb-4 bg-gray-200" disabled />
+                        }
                         <input name="phone" type="tel" placeholder="Phone Number"
                             className="input w-full mx-auto mb-4 bg-gray-200" />
                         <button

@@ -6,7 +6,7 @@ import phone from "../../Assets/icons/phone.svg"
 const Info = () => {
     return (
         <div>
-            <div className="relative px-4 py-16 w-full md:w-[85%] mx-auto md:px-24 lg:px-8 lg:py-20 text-white">
+            <div className="container relative px-4 py-16 w-full md:w-[85%] mx-auto md:px-24 lg:px-8 lg:py-20 text-white">
                 <div className="relative grid gap-5 grid-cols-1 md:grid-cols-1 lg:grid-cols-3">
                     <div className="px-6 py-12 transition duration-300 transform bg-gradient-to-r from-primary to-secondary rounded shadow-2xl hover:scale-105 md:shadow-xl hover:shadow-2xl">
                         <div className='flex flex-col md:flex-row items-center text-center md:text-left'>

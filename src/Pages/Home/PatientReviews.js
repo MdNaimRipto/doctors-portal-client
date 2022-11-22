@@ -32,7 +32,7 @@ const PatientReviews = () => {
     ]
 
     return (
-        <div className="px-4 py-16 w-full md:w-[85%] mx-auto md:px-24 lg:px-8 lg:py-20">
+        <div className="container px-4 py-16 w-full md:w-[85%] mx-auto md:px-24 lg:px-8 lg:py-20">
             <div className=" mb-10 md:mx-auto md:mb-12">
                 <div className='flex items-center justify-between'>
                     <div>

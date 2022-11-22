@@ -1,15 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../ContextProvider/AuthProvider';
 import GoogleLogin from './GoogleLogin';
+import { useToken } from '../../Hooks/useToken';
 
 const Register = () => {
     const { signUp, updateUser } = useContext(AuthContext)
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail)
 
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || "/";
+
+    if (token) {
+        navigate(from, { replace: true })
+    }
 
     const { register, handleSubmit, formState: { errors } } = useForm()
     const handleRegister = (data) => {
@@ -25,10 +32,26 @@ const Register = () => {
                 updateUser(userName)
                     .then(() => { })
                     .catch(err => console.error(err))
-                navigate(from, { replace: true })
+                saveUserInfo(data.name, email)
             })
             .catch(err => console.error(err))
     }
+
+    const saveUserInfo = (name, email) => {
+        const user = { name, email };
+        fetch("https://doctors-portal-server-three-puce.vercel.app/users", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email)
+            })
+    }
+
     return (
         <div className='flex items-center justify-center my-12'>
             <div className="w-[96%] md:w-[30%] px-5 py-6 border border-gray-200 font-semibold">
